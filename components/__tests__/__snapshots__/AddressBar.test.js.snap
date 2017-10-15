@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "elevation": 2,
+      "flexDirection": "row",
+      "height": 55,
+      "justifyContent": "center",
+      "left": 0,
+      "padding": 12,
+      "position": "absolute",
+      "right": 0,
+      "shadowColor": "#757575",
+      "shadowOffset": Object {
+        "height": 1,
+        "width": 0,
+      },
+      "shadowOpacity": 0.7,
+      "top": 0,
+      "zIndex": 1,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "marginRight": 12,
+        "resizeMode": "contain",
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the loading screen 1`] = `<ExponentAppLoading />`;
+
+exports[`renders the root without loading screen 1`] = `<ExponentAppLoading />`;

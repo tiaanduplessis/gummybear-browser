@@ -1,0 +1,29 @@
+{
+  "name": "gummybear",
+  "version": "1.0.0",
+  "description": "Simple little browser",
+  "author": "tiaanduplessis <tiaanduplessis@hotmail.com>",
+  "license": "MIT",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "test": "node ./node_modules/jest/bin/jest.js",
+    "start": "exp start --localhost --ios",
+    "format": "prettier-standard **/*.js",
+    "build:android": "exp build:android",
+    "build:ios": "exp build:ios"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "expo": "^21.0.0",
+    "prop-types": "^15.6.0",
+    "react": "16.0.0-alpha.12",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react-native-modest-storage": "^1.0.0"
+  },
+  "devDependencies": {
+    "jest-expo": "^21.0.0",
+    "prettier-standard": "^7.0.1"
+  }
+}

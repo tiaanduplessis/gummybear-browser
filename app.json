@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Gummybear",
+    "description": "Simple little browser",
+    "slug": "gummybear",
+    "privacy": "unlisted",
+    "sdkVersion": "21.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#fff",
+    "icon": "./assets/icons/app-icon.png",
+    "loading": {
+      "icon": "./assets/icons/loading-icon.png"
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    },
+    "ios": {
+      "bundleIdentifier": "co.za.hackerdashery.gummybear",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "co.za.hackerdashery.gummybear"
+    }
+  }
+}
