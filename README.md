@@ -40,6 +40,8 @@
 
 ## About
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tiaanduplessis/gummybear-browser.svg)](https://greenkeeper.io/)
+
 A simple little browser build with [React Native](https://facebook.github.io/react-native/) and [Expo](http://expo.io/)
 
 <div align="center">
