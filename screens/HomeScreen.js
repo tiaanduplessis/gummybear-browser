@@ -8,7 +8,8 @@ import {
   BackHandler,
   ScrollView,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
+  PanResponder
 } from 'react-native'
 import storage from 'react-native-modest-storage'
 
@@ -23,7 +24,7 @@ import colors from '../constants/colors'
 import mixins from '../constants/style-mixins'
 import spacing from '../constants/spacing'
 
-import { sanitizeUrl } from '../utils'
+import { isTrue } from '../utils'
 
 class HomeScreen extends Component {
   state = {
@@ -34,19 +35,19 @@ class HomeScreen extends Component {
     activeUrl: BASE_URL,
     backButtonEnabled: false,
     forwardButtonEnabled: false,
-    showInput: false
+    showInput: false,
+    firstMoveY: 0,
+    isScrolling: false
   }
-
   async componentDidMount () {
     BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBack)
+    this.setupAnimations()
 
     const url = await storage.get('url')
 
     if (url) {
       this.setState({ url, activeUrl: url })
     }
-
-    this.setupAnimations()
   }
 
   componentWillUnmount () {
@@ -65,42 +66,80 @@ class HomeScreen extends Component {
       backButtonEnabled,
       forwardButtonEnabled,
       showInput,
-      title
+      title,
+      isScrolling
     } = this.state
 
+    const { panHandlers } = (panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: isTrue,
+      onStartShouldSetPanResponderCapture: isTrue,
+      onMoveShouldSetPanResponder: isTrue,
+      onMoveShouldSetPanResponderCapture: isTrue,
+      onPanResponderGrant: this.handlePanResponderGrant,
+      onPanResponderMove: this.handlePanResponderMove,
+      onPanResponderRelease: this.handlePanResponderRelease
+    }))
+
     return (
-      <Container>
-        <AddressBar
-          showInput={showInput}
-          title={title}
-          url={activeUrl}
-          loading={loading}
-          onReload={this.handleReload}
-          onLoad={this.handleLoad}
-        />
+      <Container backgroundColor={colors.offWhite}>
+        {!isScrolling && (
+          <AddressBar
+            showInput={showInput}
+            title={title}
+            url={activeUrl}
+            loading={loading}
+            onReload={this.handleReload}
+            onLoad={this.handleLoad}
+          />
+        )}
 
-        <WebView
-          ref={ref => {
-            this.webview = ref
-          }}
-          onNavigationStateChange={this.handleNavigationStateChange}
-          source={{ uri: url }}
-          style={styles.webview}
-          startInLoadingState
-          renderLoading={() => <Spinner />}
-          automaticallyAdjustContentInsets={false}
-          scalesPageToFit
-        />
+        <View style={{ flex: 1 }} {...panHandlers}>
+          <WebView
+            ref={ref => {
+              this.webview = ref
+            }}
+            style={styles.webview}
+            onNavigationStateChange={this.handleNavigationStateChange}
+            source={{ uri: url }}
+            startInLoadingState
+            renderLoading={() => <Spinner />}
+            automaticallyAdjustContentInsets={false}
+            scalesPageToFit
+          />
+        </View>
 
-        <Toolbar
-          enableBack={backButtonEnabled}
-          enableForward={forwardButtonEnabled}
-          onBack={this.handleBack}
-          onForward={this.handleForward}
-          onHome={this.handleHome}
-        />
+        {!isScrolling && (
+          <Toolbar
+            enableBack={backButtonEnabled}
+            enableForward={forwardButtonEnabled}
+            onBack={this.handleBack}
+            onForward={this.handleForward}
+            onHome={this.handleHome}
+          />
+        )}
       </Container>
     )
+  }
+
+  handlePanResponderRelease = () => {
+    this.timeout = setTimeout(() => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.linear)
+      this.setState({ isScrolling: false })
+    }, 1000)
+  }
+
+  handlePanResponderGrant = (evt, gestureState) => {
+    clearTimeout(this.timeout)
+    this.setState({
+      firstMoveY: gestureState.y0
+    })
+  }
+
+  handlePanResponderMove = (evt, gestureState) => {
+    const distance = Math.abs(gestureState.moveY - this.state.firstMoveY)
+    if (distance > 200) {
+      this.setState({ isScrolling: true })
+    }
   }
 
   handleHardwareBack = () => {
@@ -133,7 +172,7 @@ class HomeScreen extends Component {
     this.timeout = setTimeout(() => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       this.setState({ showInput: true })
-    }, 2000)
+    }, 1500)
   }
 
   handleNavigationStateChange = navState => {
@@ -158,7 +197,7 @@ class HomeScreen extends Component {
 
   handleForward = () => this.webview.goForward()
 
-  handleHome = () => this.setState({ url: BASE_URL })
+  handleHome = () => this.setState({ url: BASE_URL, activeUrl: BASE_URL })
 }
 
 const styles = StyleSheet.create({
@@ -173,8 +212,7 @@ const styles = StyleSheet.create({
     height: TOOLBAR_HEIGHT
   },
   webview: {
-    marginTop: ADDRESS_BAR_HEIGHT,
-    marginBottom: TOOLBAR_HEIGHT
+    backgroundColor: colors.offWhite
   }
 })
 
