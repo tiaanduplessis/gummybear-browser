@@ -63,8 +63,7 @@ class AddressBar extends Component {
     )
   }
 
-  handleTextInputChange = text => {
-    const inputText = sanitizeUrl(text)
+  handleTextInputChange = inputText => {
     this.setState({ inputText })
   }
 
@@ -72,7 +71,7 @@ class AddressBar extends Component {
     const { inputText } = this.state
     const { url, onReload, onLoad } = this.props
 
-    inputText === url ? onReload() : onLoad(url)
+    inputText === url ? onReload() : onLoad(sanitizeUrl(inputText))
     this.input && this.input.blur()
   }
 
@@ -85,10 +84,6 @@ const styles = StyleSheet.create({
   addressBar: {
     ...mixins.shadow,
     shadowOffset: { width: 0, height: 1 },
-    position: 'absolute',
-    top: spacing[0],
-    left: spacing[0],
-    right: spacing[0],
     zIndex: 1,
     padding: spacing[2],
     backgroundColor: colors.white,
