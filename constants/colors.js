@@ -3,6 +3,6 @@ export default {
   white: '#fff',
   lightGray: '#E0E0E0',
   gray: '#757575',
-  offWhite: '#f6f6f6',
+  offWhite: '#F7F8F8',
   transparent: 'transparent'
 }
