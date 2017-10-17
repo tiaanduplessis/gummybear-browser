@@ -9,7 +9,10 @@ import { noop } from '../utils'
 
 const Toolbar = ({ onHome, onBack, onForward, enableBack, enableForward }) => (
   <View style={styles.toolbar}>
-    <TouchableOpacity onPress={onHome}>
+    <TouchableOpacity
+      onPress={onHome}
+      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+    >
       <SimpleLineIcons name='home' size={25} color={colors.black} />
     </TouchableOpacity>
     <View style={styles.innerContainer}>
@@ -43,16 +46,13 @@ const styles = StyleSheet.create({
   toolbar: {
     alignItems: 'center',
     padding: 12,
+    zIndex: 1,
     justifyContent: 'space-between',
     flexDirection: 'row',
-    position: 'absolute',
     shadowOffset: { width: 0, height: -1 },
     shadowColor: colors.gray,
     shadowOpacity: 0.7,
     elevation: 2,
-    bottom: 0,
-    left: 0,
-    right: 0,
     backgroundColor: colors.white,
     height: TOOLBAR_HEIGHT,
     borderColor: colors.offWhite,
