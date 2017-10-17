@@ -6,23 +6,20 @@ exports[`renders correctly 1`] = `
     Object {
       "alignItems": "center",
       "backgroundColor": "#fff",
-      "borderColor": "#f6f6f6",
+      "borderColor": "#F7F8F8",
       "borderTopWidth": 1,
-      "bottom": 0,
       "elevation": 2,
       "flexDirection": "row",
       "height": 50,
       "justifyContent": "space-between",
-      "left": 0,
       "padding": 12,
-      "position": "absolute",
-      "right": 0,
       "shadowColor": "#757575",
       "shadowOffset": Object {
         "height": -1,
         "width": 0,
       },
       "shadowOpacity": 0.7,
+      "zIndex": 1,
     }
   }
 >
@@ -32,7 +29,14 @@ exports[`renders correctly 1`] = `
     accessibilityTraits={undefined}
     accessible={true}
     collapsable={undefined}
-    hitSlop={undefined}
+    hitSlop={
+      Object {
+        "bottom": 10,
+        "left": 10,
+        "right": 10,
+        "top": 10,
+      }
+    }
     isTVSelectable={true}
     nativeID={undefined}
     onLayout={undefined}

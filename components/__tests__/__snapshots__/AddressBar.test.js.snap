@@ -10,17 +10,13 @@ exports[`renders correctly 1`] = `
       "flexDirection": "row",
       "height": 55,
       "justifyContent": "center",
-      "left": 0,
       "padding": 12,
-      "position": "absolute",
-      "right": 0,
       "shadowColor": "#757575",
       "shadowOffset": Object {
         "height": 1,
         "width": 0,
       },
       "shadowOpacity": 0.7,
-      "top": 0,
       "zIndex": 1,
     }
   }
