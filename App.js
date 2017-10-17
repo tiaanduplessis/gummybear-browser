@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, StatusBar, UIManager } from 'react-native'
-import { AppLoading, Asset, Font } from 'expo'
+import { AppLoading, Asset, Font, Permissions } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
 
 import HomeScreen from './screens/HomeScreen'
@@ -35,6 +35,7 @@ export default class App extends React.Component {
 
     loadResourcesAsync = async () => {
         return Promise.all([
+            Permissions.askAsync(Permissions.LOCATION),
             Font.loadAsync({
                 Montserrat: require('./assets/fonts/Montserrat-Light.otf')
             })
