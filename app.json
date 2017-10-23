@@ -21,7 +21,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "co.za.hackerdashery.gummybear"
+      "package": "co.za.hackerdashery.gummybear",
+      "versionCode": 1
     }
   }
 }
