@@ -42,6 +42,8 @@
 
 A simple little browser build with [React Native](https://facebook.github.io/react-native/) and [Expo](http://expo.io/)
 
+<a href='https://play.google.com/store/apps/details?id=co.za.hackerdashery.gummybear&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+
 <div align="center">
 	<img width="60%" src="docs/images/example.png" alt=""/>
 </div>
