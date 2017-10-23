@@ -6,6 +6,7 @@
     "privacy": "unlisted",
     "sdkVersion": "21.0.0",
     "version": "1.0.0",
+    "scheme": "https",
     "orientation": "portrait",
     "primaryColor": "#fff",
     "icon": "./assets/icons/app-icon.png",

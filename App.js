@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, StatusBar, UIManager } from 'react-native'
+import { Platform, StatusBar, UIManager, Linking } from 'react-native'
 import { AppLoading, Asset, Font, Permissions } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -12,11 +12,19 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 export default class App extends React.Component {
     state = {
-        isLoadingComplete: false
+        isLoadingComplete: false,
+        initialURL: ''
+    }
+
+    async componentDidMount() {
+        const url = await Linking.getInitialURL()
+        this.setState({initialURL: url})
     }
 
     render() {
-        if (!this.state.isLoadingComplete) {
+        const {isLoadingComplete, initialURL} = this.state
+
+        if (!isLoadingComplete) {
             return (
                 <AppLoading
                     startAsync={this.loadResourcesAsync}
@@ -28,7 +36,7 @@ export default class App extends React.Component {
             return (
                 <Container>
                     <StatusBar hidden />
-                    <HomeScreen />
+                    <HomeScreen initialURL={initialURL} />
                 </Container>
             )
     }
@@ -36,7 +44,7 @@ export default class App extends React.Component {
     loadResourcesAsync = async () => {
         return Promise.all([
             Permissions.askAsync(Permissions.LOCATION),
-            Asset.loadAsync(require('./assets/images/gummybear.png')).downloadAsync(),
+            Asset.fromModule(require('./assets/images/gummybear.png')).downloadAsync(),
             Font.loadAsync({
                 Montserrat: require('./assets/fonts/Montserrat-Light.otf')
             })
