@@ -36,6 +36,7 @@ export default class App extends React.Component {
     loadResourcesAsync = async () => {
         return Promise.all([
             Permissions.askAsync(Permissions.LOCATION),
+            Asset.loadAsync(require('./assets/images/gummybear.png')).downloadAsync(),
             Font.loadAsync({
                 Montserrat: require('./assets/fonts/Montserrat-Light.otf')
             })
