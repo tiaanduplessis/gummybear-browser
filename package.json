@@ -19,7 +19,7 @@
     "expo": "^21.0.0",
     "prop-types": "^15.6.0",
     "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react-native": "0.63.0",
     "react-native-modest-storage": "^1.0.0"
   },
   "devDependencies": {
