@@ -37,6 +37,7 @@ class HomeScreen extends Component {
         isScrolling: false
     }
     async componentDidMount() {
+        this.restoreStoredURL = true
         BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBack)
         this.setupAnimations()
         Linking.addEventListener('url', this.handleURL)
@@ -48,15 +49,22 @@ class HomeScreen extends Component {
         } else {
             const url = await storage.get('url')
 
-            if (url) {
+            if (url && this.restoreStoredURL) {
                 this.setState({ url, activeUrl: url })
             }
         }
     }
 
-    handleURL = url => this.setState({ url, activeUrl: url })
+    handleURL = event => {
+        if (!event || typeof event.url !== 'string' || !event.url) return
+
+        const { url } = event
+        this.restoreStoredURL = false
+        this.setState({ url, activeUrl: url })
+    }
 
     componentWillUnmount() {
+        this.restoreStoredURL = false
         BackHandler.removeEventListener('hardwareBackPress', this.handleHardwareBack)
         Linking.removeEventListener('url', this.handleURL)
         clearTimeout(this.timeout)
@@ -74,7 +82,7 @@ class HomeScreen extends Component {
             isScrolling
         } = this.state
 
-        const { panHandlers } = (panResponder = PanResponder.create({
+        const { panHandlers } = PanResponder.create({
             onStartShouldSetPanResponder: isTrue,
             onStartShouldSetPanResponderCapture: isTrue,
             onMoveShouldSetPanResponder: isTrue,
@@ -82,7 +90,7 @@ class HomeScreen extends Component {
             onPanResponderGrant: this.handlePanResponderGrant,
             onPanResponderMove: this.handlePanResponderMove,
             onPanResponderRelease: this.handlePanResponderRelease
-        }))
+        })
 
         return (
             <Container backgroundColor={colors.offWhite}>
