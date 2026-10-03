@@ -54,7 +54,12 @@ class HomeScreen extends Component {
         }
     }
 
-    handleURL = url => this.setState({ url, activeUrl: url })
+    handleURL = event => {
+        if (!event || typeof event.url !== 'string' || !event.url) return
+
+        const { url } = event
+        this.setState({ url, activeUrl: url })
+    }
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleHardwareBack)
